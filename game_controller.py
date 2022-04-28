@@ -1,28 +1,19 @@
 """
 
 """
+import pygame
 
-class GhibliGameController:
+pygame.init()
+
+
+class KeyController():
+    """
+    Controls sprite with arrow keys and track state of arrow keys.
+    """
 
     def __init__(self):
         pass
 
-    @abstractmethod
-    def move(self):
-        pass
-
-class KeyController(GhibliGameController):
-    """
-    Controls sprite with arrow keys and track state of arrow keys.
-    """
-    
-    def move(self):
-        pass
-
-class AIController(GhibliGameController):
-    """
-    Control path of packages/obstacles.
-    """
-
-    def move(self):
-        pass
+    def get_move(self):
+        pressed_keys = pygame.key.get_pressed()
+        return pressed_keys
