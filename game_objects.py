@@ -2,33 +2,37 @@
 
 """
 import pygame
+import random
+import constants
 
 pygame.init()
 
 
-class GhibliGameObject(pygame.sprite.Sprite):
+class Objects(pygame.sprite.Sprite):
     def create_object(self, img, x, y, scale, xflip, yflip, speed):
         """
         Initialize image path, position, hitbox.
         """
         pygame.sprite.Sprite.__init__(self)
         self.speed = speed
-        self.img = pygame.image.load(img)
-        self.img = pygame.transform.scale(self.img, (int(
-            self.img.get_width() * scale), int(self.img.get_height() * scale)))
-        self.img = pygame.transform.flip(self.img, xflip, yflip)
-        self.rect = self.img.get_rect()
-        self.height = self.img.get_height()
+        self.image = pygame.image.load(img)
+        self.image = pygame.transform.scale(self.image, (int(
+            self.image.get_width() * scale), int(self.image.get_height() * scale)))
+        self.image = pygame.transform.flip(self.image, xflip, yflip)
+        self.rect = self.image.get_rect()
+        self.height = self.image.get_height()
         self.rect.center = (x, y)
 
-    def move(self):
+    def update(self):
         dx = -self.speed
         self.rect.x += dx
 
 
-class GhibliGameSprite(GhibliGameObject):
+class Player(Objects):
     def __init__(self):
-        self.create_object('images/kiki.png', 100, 100, 0.5, True, False, 5)
+        self.y = constants.SCREEN_HEIGHT/2
+        self.x = 100
+        self.create_object('images/kiki.png', self.x, self.y, 0.5, True, False, 5)
 
     def move(self, pressed_keys):
         dy = 0
@@ -44,13 +48,15 @@ class GhibliGameSprite(GhibliGameObject):
             self.rect.y = 800*.8 - self.height
 
 
-class GhibliGamePackage(GhibliGameObject):
-    def __init__(self, y, scale, speed):
-        self.create_object('images/Package.png', 700, y,
-                           scale, False, False, speed)
+class Packages(Objects):
+    def __init__(self, speed):
+        self.y = (random.randint(0, (constants.SCREEN_HEIGHT-constants.PACKAGE_HEIGHT)/10))*10
+        self.create_object('images/Package.png', constants.SCREEN_WIDTH, self.y,
+                           0.25, False, False, speed)
 
 
-class GhibliGameObstacle(GhibliGameObject):
-    def __init__(self, y, scale, speed):
-        self.create_object('images/Goose.png', 700, y,
-                           scale, False, False, speed)
+class Obstacles(Objects):
+    def __init__(self, speed):
+        self.y = (random.randint(0, constants.SCREEN_HEIGHT/10))*10
+        self.create_object('images/Goose.png', constants.SCREEN_WIDTH, self.y,
+                           0.25, False, False, speed)

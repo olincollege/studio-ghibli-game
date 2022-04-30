@@ -1,35 +1,41 @@
 import pygame
-from game_objects import GhibliGameObstacle, GhibliGamePackage, GhibliGameSprite
+from game_objects import Obstacles, Packages, Player
 from game_view import GraphicsView
 from game_controller import KeyController
+import constants
 
 pygame.init()
 
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = int(SCREEN_WIDTH * 0.8)
-
-screen = GraphicsView(SCREEN_WIDTH, SCREEN_HEIGHT)
-player = GhibliGameSprite()
-package = GhibliGamePackage(500, 0.25, 2)
-obstacle = GhibliGameObstacle(300, 0.25, 2)
+screen = GraphicsView(constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT)
+obstacle = Obstacles(2)
 controller = KeyController()
+player = Player()
+objects_group = pygame.sprite.Group()
+player_group = pygame.sprite.Group()
+packages_group = pygame.sprite.Group()
+obstacles_group = pygame.sprite.Group()
 
 fps_clock = pygame.time.Clock()
 
 run = True
 
 while run:
-    fps_clock.tick(60)
+    fps_clock.tick(constants.FPS)
     screen.fill_background()
 
-    screen.display_sprite(player.img, player.rect)
-    screen.display_sprite(package.img, package.rect)
-    screen.display_sprite(obstacle.img, obstacle.rect)
+    if pygame.time.get_ticks() % 300 == 0:
+        package = Packages(2)
+        packages_group.add(package)
+
+    screen.draw_group(packages_group)
+
+    screen.display_sprite(player.image, player.rect)
+    screen.display_sprite(obstacle.image, obstacle.rect)
 
     pressed_keys = controller.get_move()
     player.move(pressed_keys)
-    package.move()
-    obstacle.move()
+    obstacle.update()
+    packages_group.update()
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

@@ -2,7 +2,7 @@
 Display home/start screen, background of game, win/death screen, scores.
 """
 import pygame
-from game_objects import GhibliGameObject, GhibliGamePackage, GhibliGameSprite
+from game_objects import Objects, Packages, Player
 
 pygame.init()
 
@@ -18,3 +18,6 @@ class GraphicsView:
     def fill_background(self):
         Color = (135, 206, 236)
         self.screen.fill(Color)
+
+    def draw_group(self,group):
+        group.draw(self.screen)
