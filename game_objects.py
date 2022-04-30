@@ -46,11 +46,11 @@ class GhibliGameSprite(GhibliGameObject):
 
 class GhibliGamePackage(GhibliGameObject):
     def __init__(self, y, scale, speed):
-        self.create_object('images/kiki.png', 700, y,
+        self.create_object('images/Package.png', 700, y,
                            scale, False, False, speed)
 
 
 class GhibliGameObstacle(GhibliGameObject):
     def __init__(self, y, scale, speed):
-        self.create_object('images/kiki.png', 700, y,
+        self.create_object('images/Goose.png', 700, y,
                            scale, False, False, speed)
