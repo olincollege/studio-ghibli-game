@@ -18,18 +18,33 @@ geese_group = pygame.sprite.Group()
 fps_clock = pygame.time.Clock()
 lives = 3
 score = 0
+start_time = pygame.time.get_ticks()
+current_time = pygame.time.get_ticks()
 
+welcome_screen = True
 run = True
+end_screen = True
+
+while welcome_screen:
+    screen.fill_background((255,255,255))
+    #pressed_keys = controller.get_move()
+    if pygame.key.get_focused():
+        welcome_screen = False
+        print(True)
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
 
 while run:
     fps_clock.tick(constants.FPS)
-    screen.fill_background()
-    print(pygame.time.get_ticks())
-    if pygame.time.get_ticks() % 100 == 0:
+    screen.fill_background((135, 206, 236))
+    if pygame.time.get_ticks() - current_time >= 5000:
         package = Packages(2)
         packages_group.add(package)
         goose = Geese(2)
         geese_group.add(goose)
+        current_time = pygame.time.get_ticks()
 
     screen.draw_group(packages_group)
     screen.draw_group(geese_group)
@@ -51,13 +66,13 @@ while run:
     if lives == 0:
         run = False
 
-    print(score)
-    print(lives)
-
     geese_group.update()
     packages_group.update()
 
     pygame.display.update()
+
+    #if pygame.time.get_ticks() >= 5000:
+    #    run = False
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

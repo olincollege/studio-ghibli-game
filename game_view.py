@@ -15,8 +15,8 @@ class GraphicsView:
     def display_sprite(self, img, rect):
         self.screen.blit(img, rect)
 
-    def fill_background(self):
-        Color = (135, 206, 236)
+    def fill_background(self, Color):
+        #Color = (135, 206, 236)
         self.screen.fill(Color)
 
     def draw_group(self, group):
