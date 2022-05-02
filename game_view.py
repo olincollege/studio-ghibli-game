@@ -19,5 +19,13 @@ class GraphicsView:
         Color = (135, 206, 236)
         self.screen.fill(Color)
 
-    def draw_group(self,group):
+    def draw_group(self, group):
         group.draw(self.screen)
+
+    def display_text(self, text, size, x_pos, y_pos):
+        font_name = pygame.font.match_font('sarai')
+        font = pygame.font.Font(font_name, size)
+        text_surface = font.render(text, True, (0, 0, 0))
+        text_rect = text_surface.get_rect()
+        text_rect.midtop = (x_pos, y_pos)
+        self.screen.blit(text_surface, text_rect)
