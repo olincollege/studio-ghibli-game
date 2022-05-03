@@ -24,8 +24,8 @@ current_time = pygame.time.get_ticks()
 
 run = True
 welcome_screen = True
-game_screen = True
-end_screen = True
+game_screen = False
+end_screen = False
 
 while run:
 
@@ -36,12 +36,19 @@ while run:
         pygame.display.flip()
         if pygame.key.get_pressed()[pygame.K_SPACE]:
             welcome_screen = False
+            game_screen = True
+            break
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                run = False
+                pygame.quit()
 
     while game_screen:
         fps_clock.tick(constants.FPS)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+
         screen.fill_background((135, 206, 236))
         if pygame.time.get_ticks() - current_time >= 3000:
             if random.randint(0, 1) == 0:
@@ -71,6 +78,7 @@ while run:
 
         if lives == 0:
             game_screen = False
+            end_screen = True
 
         geese_group.update()
         packages_group.update()
@@ -80,8 +88,13 @@ while run:
         # if pygame.time.get_ticks() >= 5000:
         #    run = False
 
+    while end_screen:
+        screen.fill_background((135, 206, 236))
+        screen.display_text(f"end screen", 50,
+                            constants.SCREEN_WIDTH/2, constants.SCREEN_HEIGHT/2)
+        pygame.display.flip()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                run = False
+                pygame.quit()
 
 pygame.quit()
