@@ -3,6 +3,7 @@ from game_objects import Geese, Packages, Player
 from game_view import GraphicsView
 from game_controller import KeyController
 import constants
+import random
 
 pygame.init()
 
@@ -27,24 +28,28 @@ game_screen = True
 end_screen = True
 
 while run:
+
     while welcome_screen:
-        screen.fill_background((255,255,255))
+        screen.fill_background((135, 206, 236))
+        screen.display_text(f"Press Space To Start", 50,
+                            constants.SCREEN_WIDTH/2, constants.SCREEN_HEIGHT/2)
+        pygame.display.flip()
+        if pygame.key.get_pressed()[pygame.K_SPACE]:
+            welcome_screen = False
         for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                welcome_screen = False
-                print(True)
-                break
             if event.type == pygame.QUIT:
                 run = False
 
-    while run:
+    while game_screen:
         fps_clock.tick(constants.FPS)
         screen.fill_background((135, 206, 236))
-        if pygame.time.get_ticks() - current_time >= 5000:
-            package = Packages(2)
-            packages_group.add(package)
-            goose = Geese(2)
-            geese_group.add(goose)
+        if pygame.time.get_ticks() - current_time >= 3000:
+            if random.randint(0, 1) == 0:
+                package = Packages(2)
+                packages_group.add(package)
+            else:
+                goose = Geese(2)
+                geese_group.add(goose)
             current_time = pygame.time.get_ticks()
 
         screen.draw_group(packages_group)
@@ -65,14 +70,14 @@ while run:
                             constants.SCREEN_WIDTH - 100, 75)
 
         if lives == 0:
-            run = False
+            game_screen = False
 
         geese_group.update()
         packages_group.update()
 
         pygame.display.update()
 
-        #if pygame.time.get_ticks() >= 5000:
+        # if pygame.time.get_ticks() >= 5000:
         #    run = False
 
         for event in pygame.event.get():
