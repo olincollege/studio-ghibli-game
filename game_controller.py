@@ -17,3 +17,8 @@ class KeyController():
     def get_move(self):
         pressed_keys = pygame.key.get_pressed()
         return pressed_keys
+
+    def check_exit(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()

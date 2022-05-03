@@ -20,7 +20,8 @@ fps_clock = pygame.time.Clock()
 lives = 3
 score = 0
 start_time = pygame.time.get_ticks()
-current_time = pygame.time.get_ticks()
+package_time = pygame.time.get_ticks()
+goose_time = pygame.time.get_ticks()
 
 run = True
 welcome_screen = True
@@ -30,38 +31,27 @@ end_screen = False
 while run:
 
     while welcome_screen:
-        screen.fill_background((135, 206, 236))
-        screen.display_text(f"Press Space To Start", 50,
-                            constants.SCREEN_WIDTH/2, constants.SCREEN_HEIGHT/2)
+        screen.welcome_display()
         pygame.display.flip()
         if pygame.key.get_pressed()[pygame.K_SPACE]:
             welcome_screen = False
             game_screen = True
             break
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
+        controller.check_exit()
 
     while game_screen:
         fps_clock.tick(constants.FPS)
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
+        controller.check_exit()
 
-        screen.fill_background((135, 206, 236))
-        if pygame.time.get_ticks() - current_time >= 3000:
-            if random.randint(0, 1) == 0:
-                package = Packages(2)
-                packages_group.add(package)
-            else:
-                goose = Geese(2)
-                geese_group.add(goose)
-            current_time = pygame.time.get_ticks()
-
-        screen.draw_group(packages_group)
-        screen.draw_group(geese_group)
-        screen.draw_group(player_group)
+        if pygame.time.get_ticks() - package_time >= 1000:
+            package = Packages(2)
+            packages_group.add(package)
+            package_time = pygame.time.get_ticks()
+        if pygame.time.get_ticks() - goose_time >= 1100:
+            goose = Geese(3)
+            geese_group.add(goose)
+            goose_time = pygame.time.get_ticks()
 
         pressed_keys = controller.get_move()
         player.move(pressed_keys)
@@ -71,10 +61,9 @@ while run:
         if pygame.sprite.groupcollide(player_group, geese_group, False, True):
             lives -= 1
 
-        screen.display_text(f"Lives: {lives}", 50,
-                            constants.SCREEN_WIDTH - 100, 25)
-        screen.display_text(f"Score: {score}", 50,
-                            constants.SCREEN_WIDTH - 100, 75)
+        #screen.draw_groups([packages_group, geese_group, player_group])
+        screen.game_display(
+            lives, score, [packages_group, geese_group, player_group])
 
         if lives == 0:
             game_screen = False
@@ -85,16 +74,14 @@ while run:
 
         pygame.display.update()
 
-        # if pygame.time.get_ticks() >= 5000:
-        #    run = False
-
     while end_screen:
-        screen.fill_background((135, 206, 236))
-        screen.display_text(f"end screen", 50,
-                            constants.SCREEN_WIDTH/2, constants.SCREEN_HEIGHT/2)
+        screen.end_display(score)
+        if pygame.key.get_pressed()[pygame.K_SPACE]:
+            lives = 3
+            game_screen = True
+            end_screen = False
+            break
         pygame.display.flip()
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
+        controller.check_exit()
 
 pygame.quit()
