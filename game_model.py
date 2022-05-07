@@ -3,25 +3,25 @@ from game_objects import Geese, Packages, Player
 from game_view import GraphicsView
 from game_controller import KeyController
 import constants
-import random
 
 pygame.init()
 
 screen = GraphicsView(constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT)
 controller = KeyController()
 player = Player()
-objects_group = pygame.sprite.Group()
+
 player_group = pygame.sprite.Group()
 player_group.add(player)
 packages_group = pygame.sprite.Group()
 geese_group = pygame.sprite.Group()
 
 fps_clock = pygame.time.Clock()
-lives = 3
-score = 0
 start_time = pygame.time.get_ticks()
 package_time = pygame.time.get_ticks()
 goose_time = pygame.time.get_ticks()
+
+lives = 3
+score = 0
 
 run = True
 welcome_screen = True
@@ -45,23 +45,22 @@ while run:
         controller.check_exit()
 
         if pygame.time.get_ticks() - package_time >= 1000:
-            package = Packages(2)
+            package = Packages()
             packages_group.add(package)
             package_time = pygame.time.get_ticks()
         if pygame.time.get_ticks() - goose_time >= 1100:
-            goose = Geese(3)
+            goose = Geese()
             geese_group.add(goose)
             goose_time = pygame.time.get_ticks()
 
         pressed_keys = controller.get_move()
         player.move(pressed_keys)
 
-        if pygame.sprite.groupcollide(player_group, packages_group, False, True):
+        if player.collide(player_group, packages_group):
             score += 1
-        if pygame.sprite.groupcollide(player_group, geese_group, False, True):
+        if player.collide(player_group, geese_group):
             lives -= 1
 
-        #screen.draw_groups([packages_group, geese_group, player_group])
         screen.game_display(
             lives, score, [packages_group, geese_group, player_group])
 

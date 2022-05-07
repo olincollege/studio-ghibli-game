@@ -51,18 +51,21 @@ class Player(Objects):
         elif self.rect.y > 800*.8 - self.height:
             self.rect.y = 800*.8 - self.height
 
+    def collide(self, group1, group2):
+        return pygame.sprite.groupcollide(group1, group2, False, True)
+
 
 class Packages(Objects):
-    def __init__(self, speed):
+    def __init__(self):
         self.y = (random.randint((0 + constants.PACKAGE_HEIGHT)/10,
                   (constants.SCREEN_HEIGHT-constants.PACKAGE_HEIGHT)/10))*10
         self.create_object('images/Package.png', constants.SCREEN_WIDTH, self.y,
-                           0.25, False, False, speed)
+                           0.25, False, False, 2)
 
 
 class Geese(Objects):
-    def __init__(self, speed):
+    def __init__(self):
         self.y = (random.randint((0 + constants.PACKAGE_HEIGHT)/10,
                   (constants.SCREEN_HEIGHT-constants.PACKAGE_HEIGHT)/10))*10
         self.create_object('images/Goose.png', constants.SCREEN_WIDTH, self.y,
-                           0.25, False, False, speed)
+                           0.25, False, False, 3)

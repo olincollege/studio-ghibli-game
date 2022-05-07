@@ -3,7 +3,6 @@ Display home/start screen, background of game, win/death screen, scores.
 """
 import pygame
 import constants
-from game_objects import Objects, Packages, Player
 
 pygame.init()
 
@@ -13,11 +12,8 @@ class GraphicsView:
     def __init__(self, SCREEN_WIDTH, SCREEN_HEIGHT):
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
-    def display_sprite(self, img, rect):
-        self.screen.blit(img, rect)
-
     def fill_background(self, Color):
-        #Color = (135, 206, 236)
+        #Blue = (135, 206, 236)
         self.screen.fill(Color)
 
     def draw_group(self, group):
@@ -47,7 +43,7 @@ class GraphicsView:
         self.fill_background((135, 206, 236))
         self.display_text(f"Final Score: {score}", 50,
                           constants.SCREEN_WIDTH/2, constants.SCREEN_HEIGHT/2)
-        self.display_text(f"Press SPACE To Play Again", 50,
+        self.display_text(f"Press SPACE To Keep Playing", 50,
                           constants.SCREEN_WIDTH/2, constants.SCREEN_HEIGHT/2-50)
 
     def welcome_display(self):
