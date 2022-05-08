@@ -6,12 +6,18 @@ Welcome to Kiki’s Delivery Game! The goal of this project was to create an int
 
 Kiki’s Delivery Game starts with Kiki (the player) on the left side of the screen.
 
-![Image](website-images/kiki.png)
+<p align="center">
+  <img src="kiki.png" width="50%" height="50%"/>
+</p>
 
 The player uses the up and down arrow keys to move Kiki vertically in order to avoid geese and collect packages moving horizontally across the screen.
 
-![Image](website-images/Goose.png)
-![Image](website-images/Packages.png)
+<p align="center">
+  <img src="Goose.png" width="50%" height="50%"/>
+</p>
+<p align="center">
+  <img src="Package.png" width="50%" height="50%"/>
+</p>
 
 The game ends when the player loses all three of their lives. All artwork is obtained from the movie Kiki’s Delivery Service.
 
@@ -23,19 +29,27 @@ Our game has three main screens: a start screen, the gameplay screen, and an end
 
 The start screen welcomes the player and prompts them to press the spacebar to start the game.
 
-![Image](website-images/Start-screen.PNG)
+<p align="center">
+  <img src="Start_screen.PNG" width="50%" height="50%"/>
+</p>
 
 The game screen starts with the player at the horizontal center of the left side of the screen. The lives (which starts at 3) and score (which starts at 0) are displayed in the top right of the screen.
 
-![Image](website-images/Gameplay_1.PNG)
+<p align="center">
+  <img src="Gameplay_1.PNG" width="50%" height="50%"/>
+</p>
 
 After a short pause, packages and geese are generated at random positions on the right side of the screen and move across the screen towards the player. If the player hits a goose, they lose a life, and if they hit a package, they gain a point towards their score.
 
-![Image](website-images/Gameplay_2.PNG)
+<p align="center">
+  <img src="Gameplay_2.PNG" width="50%" height="50%"/>
+</p>
 
 When the player loses all three of their lives, the game transitions to the end screen, which displays the player’s final score and prompts the player to press the spacebar if they wish to play again.
 
-![Image](website-images/End-screen.PNG)
+<p align="center">
+  <img src="End_screen.PNG" width="50%" height="50%"/>
+</p>
 
 ## Installation
 
