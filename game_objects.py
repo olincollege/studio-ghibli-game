@@ -59,7 +59,7 @@ class Packages(Objects):
     def __init__(self):
         self.y = (random.randint((0 + constants.PACKAGE_HEIGHT)/10,
                   (constants.SCREEN_HEIGHT-constants.PACKAGE_HEIGHT)/10))*10
-        self.create_object('images/package_2.png', constants.SCREEN_WIDTH, self.y,
+        self.create_object('images/Package.png', constants.SCREEN_WIDTH, self.y,
                            0.25, False, False, 2)
 
 
