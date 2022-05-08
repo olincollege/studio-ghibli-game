@@ -49,9 +49,9 @@ class GraphicsView:
         self.draw_background('images/End_screen.png',
                              constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT)
         self.display_text(f"Final Score: {score}", 50,
-                          constants.SCREEN_WIDTH/2, constants.SCREEN_HEIGHT/2)
-        self.display_text(f"Press SPACE To Keep Playing", 50,
                           constants.SCREEN_WIDTH/2, constants.SCREEN_HEIGHT/2-50)
+        self.display_text(f"Press SPACE To Play Again", 50,
+                          constants.SCREEN_WIDTH/2, constants.SCREEN_HEIGHT/2)
 
     def welcome_display(self):
         self.fill_background((135, 206, 236))

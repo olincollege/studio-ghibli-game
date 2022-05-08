@@ -12,9 +12,9 @@ test_package = Packages()
 player_group = pygame.sprite.Group()
 player_group.add(test_player)
 packages_group = pygame.sprite.Group()
-player_group.add(test_goose)
+packages_group.add(test_package)
 geese_group = pygame.sprite.Group()
-player_group.add(test_package)
+geese_group.add(test_goose)
 
 update_cases = [
     # test that geese and pacakges move to the left when updated
@@ -58,6 +58,14 @@ collide_cases = [
     # test that the player does not colide with a non-coincident sprite
     (player_group, geese_group, {}),
 ]
+
+test_package_2 = Packages()
+
+
+def test_create():
+    package_1_y = test_package.rect.y
+    package_2_y = test_package_2.rect.y
+    assert package_1_y != package_2_y
 
 
 @pytest.mark.parametrize("sprite", update_cases)

@@ -4,83 +4,93 @@ from game_view import GraphicsView
 from game_controller import KeyController
 import constants
 
-pygame.init()
 
-screen = GraphicsView(constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT)
-controller = KeyController()
-player = Player()
+def main():
+    pygame.init()
 
-player_group = pygame.sprite.Group()
-player_group.add(player)
-packages_group = pygame.sprite.Group()
-geese_group = pygame.sprite.Group()
+    screen = GraphicsView(constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT)
+    controller = KeyController()
+    player = Player()
 
-fps_clock = pygame.time.Clock()
-start_time = pygame.time.get_ticks()
-package_time = pygame.time.get_ticks()
-goose_time = pygame.time.get_ticks()
+    player_group = pygame.sprite.Group()
+    player_group.add(player)
+    packages_group = pygame.sprite.Group()
+    geese_group = pygame.sprite.Group()
 
-lives = 3
-score = 0
+    fps_clock = pygame.time.Clock()
+    start_time = pygame.time.get_ticks()
+    package_time = pygame.time.get_ticks()
+    goose_time = pygame.time.get_ticks()
 
-run = True
-welcome_screen = True
-game_screen = False
-end_screen = False
+    lives = 3
+    score = 0
 
-while run:
+    run = True
+    welcome_screen = True
+    game_screen = False
+    end_screen = False
 
-    while welcome_screen:
-        screen.welcome_display()
-        pygame.display.flip()
-        if pygame.key.get_pressed()[pygame.K_SPACE]:
-            welcome_screen = False
-            game_screen = True
-            break
-        controller.check_exit()
+    while run:
 
-    while game_screen:
-        fps_clock.tick(constants.FPS)
+        while welcome_screen:
+            screen.welcome_display()
+            pygame.display.flip()
+            if pygame.key.get_pressed()[pygame.K_SPACE]:
+                welcome_screen = False
+                game_screen = True
+                break
+            controller.check_exit()
 
-        controller.check_exit()
+        while game_screen:
+            fps_clock.tick(constants.FPS)
 
-        if pygame.time.get_ticks() - package_time >= 1000:
-            package = Packages()
-            packages_group.add(package)
-            package_time = pygame.time.get_ticks()
-        if pygame.time.get_ticks() - goose_time >= 1100:
-            goose = Geese()
-            geese_group.add(goose)
-            goose_time = pygame.time.get_ticks()
+            controller.check_exit()
 
-        pressed_keys = controller.get_move()
-        player.move(pressed_keys)
+            if pygame.time.get_ticks() - package_time >= 1500:
+                package = Packages()
+                packages_group.add(package)
+                package_time = pygame.time.get_ticks()
+            if pygame.time.get_ticks() - goose_time >= 1100:
+                goose = Geese()
+                geese_group.add(goose)
+                goose_time = pygame.time.get_ticks()
 
-        if player.collide(player_group, packages_group):
-            score += 1
-        if player.collide(player_group, geese_group):
-            lives -= 1
+            pressed_keys = controller.get_move()
+            player.move(pressed_keys)
 
-        screen.game_display(
-            lives, score, [packages_group, geese_group, player_group])
+            if player.collide(player_group, packages_group):
+                score += 1
+            if player.collide(player_group, geese_group):
+                lives -= 1
 
-        if lives == 0:
-            game_screen = False
-            end_screen = True
+            screen.game_display(
+                lives, score, [packages_group, geese_group, player_group])
 
-        geese_group.update()
-        packages_group.update()
+            if lives == 0:
+                game_screen = False
+                end_screen = True
 
-        pygame.display.update()
+            geese_group.update()
+            packages_group.update()
 
-    while end_screen:
-        screen.end_display(score)
-        if pygame.key.get_pressed()[pygame.K_SPACE]:
-            lives = 3
-            game_screen = True
-            end_screen = False
-            break
-        pygame.display.flip()
-        controller.check_exit()
+            pygame.display.update()
 
-pygame.quit()
+        while end_screen:
+            screen.end_display(score)
+            if pygame.key.get_pressed()[pygame.K_SPACE]:
+                lives = 3
+                score = 0
+                player.rect.y = constants.SCREEN_HEIGHT/2
+                geese_group.empty()
+                packages_group.empty()
+                game_screen = True
+                end_screen = False
+                break
+            pygame.display.flip()
+            controller.check_exit()
+
+    pygame.quit()
+
+
+if __name__ == '__main__':
+    main()
