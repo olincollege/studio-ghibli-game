@@ -16,9 +16,10 @@ class GraphicsView:
         #Blue = (135, 206, 236)
         self.screen.fill(Color)
 
-    def draw_background(self, image, dims):
-        self.rect = image.get_rect()
-        self.image = pygame.transform.scale(image, dims)
+    def draw_background(self, img, dims):
+        self.image = pygame.image.load(img)
+        self.rect = self.image.get_rect()
+        self.image = pygame.transform.scale(self.image, dims)
         self.screen.blit(self.image, self.rect)
 
     def draw_group(self, group):
@@ -47,7 +48,7 @@ class GraphicsView:
     def end_display(self, score):
         self.fill_background((135, 206, 236))
         self.draw_background('images/End_screen.png',
-                             constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT)
+                             (constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT))
         self.display_text(f"Final Score: {score}", 50,
                           constants.SCREEN_WIDTH/2, constants.SCREEN_HEIGHT/2-50)
         self.display_text(f"Press SPACE To Play Again", 50,
@@ -55,8 +56,8 @@ class GraphicsView:
 
     def welcome_display(self):
         self.fill_background((135, 206, 236))
-        self.draw_background('images/Welcome_screen.png',
-                             constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT)
+        self.draw_background('images/Start_screen.png',
+                             (constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT))
         self.display_text(f"Welcome to Kiki's Delivery Game", 50,
                           constants.SCREEN_WIDTH/2, constants.SCREEN_HEIGHT/2-50)
         self.display_text(f"Press Space To Start", 50,
