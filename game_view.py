@@ -44,21 +44,29 @@ class GraphicsView:
         self.display_text(f"Score: {score}", 50,
                           constants.SCREEN_WIDTH - 100, 75, (0, 0, 0))
         self.draw_groups(groups)
-    
+
     def welcome_display(self):
         self.fill_background((135, 206, 236))
         self.draw_background('images/Start_screen.png',
                              (constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT))
-        self.display_text(f"Welcome to Kiki's Delivery Game", 50,
-                          constants.SCREEN_WIDTH/2, constants.SCREEN_HEIGHT+150)
-        self.display_text(f"Press Space To Start", 50,
-                          constants.SCREEN_WIDTH/2, constants.SCREEN_HEIGHT+100)
+        self.display_text(f"Welcome to Kiki's Delivery Game", 35,
+                          constants.SCREEN_WIDTH - 225, constants.SCREEN_HEIGHT-175)
+        self.display_text(f"Press SPACE To Start", 35,
+                          constants.SCREEN_WIDTH - 225, constants.SCREEN_HEIGHT-125)
+        # self.display_text(f"Welcome to Kiki's Delivery Game", 50,
+        #                  constants.SCREEN_WIDTH/2, constants.SCREEN_HEIGHT/2-50)
+        # self.display_text(f"Press SPACE To Start", 50,
+        #                  constants.SCREEN_WIDTH/2, constants.SCREEN_HEIGHT/2)
 
     def end_display(self, score):
         self.fill_background((135, 206, 236))
         self.draw_background('images/End_screen.png',
                              (constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT))
         self.display_text(f"Final Score: {score}", 50,
-                          constants.SCREEN_WIDTH/2, constants.SCREEN_HEIGHT/2-50)
+                          constants.SCREEN_WIDTH/2, constants.SCREEN_HEIGHT-150)
         self.display_text(f"Press SPACE To Play Again", 50,
-                          constants.SCREEN_WIDTH/2, constants.SCREEN_HEIGHT/2)
+                          constants.SCREEN_WIDTH/2, constants.SCREEN_HEIGHT-100)
+        # self.display_text(f"Final Score: {score}", 50,
+        #                  constants.SCREEN_WIDTH/2, constants.SCREEN_HEIGHT/2-50)
+        # self.display_text(f"Press SPACE To Play Again", 50,
+        #                  constants.SCREEN_WIDTH/2, constants.SCREEN_HEIGHT/2)
