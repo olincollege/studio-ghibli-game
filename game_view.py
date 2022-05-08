@@ -15,6 +15,11 @@ class GraphicsView:
     def fill_background(self, Color):
         #Blue = (135, 206, 236)
         self.screen.fill(Color)
+    
+    def draw_background(self, image, dims):
+        self.rect = image.get_rect()
+        self.image = pygame.transform.scale(image, dims)
+        self.screen.blit(self.image, self.rect)
 
     def draw_group(self, group):
         group.draw(self.screen)
@@ -41,6 +46,7 @@ class GraphicsView:
 
     def end_display(self, score):
         self.fill_background((135, 206, 236))
+        self.draw_background('images/End_screen.png', constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT)
         self.display_text(f"Final Score: {score}", 50,
                           constants.SCREEN_WIDTH/2, constants.SCREEN_HEIGHT/2)
         self.display_text(f"Press SPACE To Keep Playing", 50,
@@ -48,5 +54,6 @@ class GraphicsView:
 
     def welcome_display(self):
         self.fill_background((135, 206, 236))
+        self.draw_background('images/Welcome_screen.png', constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT)
         self.display_text(f"Press Space To Start", 50,
                           constants.SCREEN_WIDTH/2, constants.SCREEN_HEIGHT/2)
