@@ -21,8 +21,6 @@ The player uses the up and down arrow keys to move Kiki vertically in order to a
 
 The game ends when the player loses all three of their lives. All artwork is obtained from the movie Kiki’s Delivery Service.
 
-### Game Demo
-
 ### Gameplay
 
 Our game has three main screens: a start screen, the gameplay screen, and an end screen. At any point in the game, the player can close the window to close the screen.
@@ -51,9 +49,13 @@ When the player loses all three of their lives, the game transitions to the end 
   <img src="website-images/End_screen.PNG" width="50%" height="50%"/>
 </p>
 
+### Game Demo
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/DRlvDMA6zSc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Installation
 
-A detailed installation guide can be found [here](https://github.com/olincollege/studio-ghibli-game#readme).
+A detailed installation guide can be found [here](https://github.com/olincollege/studio-ghibli-game/blob/main/README.md).
 
 To play this game, you must have python and pygame installed. You will also need to download all the files in the [studio-ghibli-game repository](https://github.com/olincollege/studio-ghibli-game). Then, navigate to the repository folder and run the following command in the terminal to start playing:
 
