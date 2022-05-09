@@ -17,7 +17,7 @@ class GraphicsView:
         """
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
-    def fill_background(self, color):
+    def _fill_background(self, color):
         """
         Fills the pygame screen with a given color
 
@@ -27,7 +27,7 @@ class GraphicsView:
         #Blue = (135, 206, 236)
         self.screen.fill(color)
 
-    def draw_background(self, img, dims):
+    def _draw_background(self, img, dims):
         """
         Fills the background of the screen with an image
 
@@ -40,7 +40,7 @@ class GraphicsView:
         image = pygame.transform.scale(image, dims)
         self.screen.blit(image, rect)
 
-    def draw_group(self, group):
+    def _draw_group(self, group):
         """
         Draws all the sprites of one group on the pygame screen
 
@@ -57,10 +57,10 @@ class GraphicsView:
             groups: a list of groups to draw
         """
         for group in groups:
-            self.draw_group(group)
+            self._draw_group(group)
 
     # pylint: disable=too-many-arguments
-    def display_text(self, text, size, x_pos, y_pos, color=(255, 255, 255)):
+    def _display_text(self, text, size, x_pos, y_pos, color=(255, 255, 255)):
         """
         Displays given text on the pygame screen
 
@@ -88,10 +88,10 @@ class GraphicsView:
             score: an integer reprsenting the users score
             groups: a list of all groups to draw on screen
         """
-        self.fill_background((135, 206, 236))
-        self.display_text(f"Lives: {lives}", 50,
+        self._fill_background((135, 206, 236))
+        self._display_text(f"Lives: {lives}", 50,
                           constants.SCREEN_WIDTH - 100, 25, (0, 0, 0))
-        self.display_text(f"Score: {score}", 50,
+        self._display_text(f"Score: {score}", 50,
                           constants.SCREEN_WIDTH - 100, 75, (0, 0, 0))
         self.draw_groups(groups)
 
@@ -99,13 +99,13 @@ class GraphicsView:
         """
         Displays everything necessary on the welcome screen
         """
-        self.fill_background((135, 206, 236))
-        self.draw_background('images/Start_screen.png',
+        self._fill_background((135, 206, 236))
+        self._draw_background('images/Start_screen.png',
                              (constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT))
-        self.display_text("Welcome to Kiki's Delivery Game", 35,
+        self._display_text("Welcome to Kiki's Delivery Game", 35,
                           constants.SCREEN_WIDTH - 225,
                           constants.SCREEN_HEIGHT-175)
-        self.display_text("Press SPACE To Start", 35,
+        self._display_text("Press SPACE To Start", 35,
                           constants.SCREEN_WIDTH - 225,
                           constants.SCREEN_HEIGHT-125)
 
@@ -116,10 +116,10 @@ class GraphicsView:
         Args:
             score: an integer reprsenting the users score
         """
-        self.fill_background((135, 206, 236))
-        self.draw_background('images/End_screen.png',
+        self._fill_background((135, 206, 236))
+        self._draw_background('images/End_screen.png',
                              (constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT))
-        self.display_text(f"Final Score: {score}", 50,
+        self._display_text(f"Final Score: {score}", 50,
                           constants.SCREEN_WIDTH/2, constants.SCREEN_HEIGHT-150)
-        self.display_text("Press SPACE To Play Again", 50,
+        self._display_text("Press SPACE To Play Again", 50,
                           constants.SCREEN_WIDTH/2, constants.SCREEN_HEIGHT-100)

@@ -30,12 +30,12 @@ class Objects(pygame.sprite.Sprite):
         """
         self.image = None
         self.rect = None
-        self.speed = None
-        self.height = None
-        self.width = None
+        self._speed = None
+        self._height = None
+        self._width = None
 
     # pylint: disable=too-many-arguments
-    def create_object(self, img, x_pos, y_pos, scale, xflip, yflip, speed):
+    def _create_object(self, img, x_pos, y_pos, scale, xflip, yflip, speed):
         """
         create a sprite with given properties
 
@@ -51,15 +51,15 @@ class Objects(pygame.sprite.Sprite):
             speed: a integer representing the spped the sprite moves
         """
         pygame.sprite.Sprite.__init__(self)
-        self.speed = speed
+        self._speed = speed
         image = pygame.image.load(img)
         image = pygame.transform.scale(image,
                                        (int(image.get_width() * scale),
                                         int(image.get_height() * scale)))
         self.image = pygame.transform.flip(image, xflip, yflip)
         self.rect = self.image.get_rect()
-        self.height = self.image.get_height()
-        self.width = self.image.get_width()
+        self._height = self.image.get_height()
+        self._width = self.image.get_width()
         self.rect.center = (x_pos, y_pos)
 
     def update(self):
@@ -67,9 +67,9 @@ class Objects(pygame.sprite.Sprite):
         Updates the position of the sprite based on the speed of the sprite
         """
         # pylint: disable=invalid-name
-        dx = -1*self.speed
+        dx = -1*self._speed
         self.rect.x += dx
-        if self.rect.x < 0 - self.width:
+        if self.rect.x < 0 - self._width:
             self.kill()
 
 
@@ -84,10 +84,10 @@ class Player(Objects):
         creates the player sprite
         """
         super().__init__()
-        self.y = constants.SCREEN_HEIGHT/2  # pylint: disable=invalid-name
-        self.x = 100    # pylint: disable=invalid-name
-        self.create_object('images/kiki.png', self.x,
-                           self.y, 0.5, True, False, 5)
+        _y_pos = constants.SCREEN_HEIGHT/2
+        _x_pos = 100
+        self._create_object('images/kiki.png', _x_pos,
+                            _y_pos, 0.5, True, False, 5)
 
     def move(self, pressed_keys):
         """
@@ -98,15 +98,15 @@ class Player(Objects):
         """
         dy = 0  # pylint: disable=invalid-name
         if pressed_keys[pygame.K_UP]:
-            dy = -1*self.speed    # pylint: disable=invalid-name
+            dy = -1*self._speed    # pylint: disable=invalid-name
         elif pressed_keys[pygame.K_DOWN]:
-            dy = self.speed     # pylint: disable=invalid-name
+            dy = self._speed     # pylint: disable=invalid-name
         self.rect.y += dy
 
         if self.rect.y < 0:
             self.rect.y = 0
-        elif self.rect.y > 800*.8 - self.height:
-            self.rect.y = 800*.8 - self.height
+        elif self.rect.y > 800*.8 - self._height:
+            self.rect.y = 800*.8 - self._height
 
 
 class Packages(Objects):
@@ -120,11 +120,10 @@ class Packages(Objects):
         Randomly generates a y coordinate and creates a package sprite
         """
         super().__init__()
-        # pylint: disable=invalid-name
-        self.y = (random.randint((0 + constants.PACKAGE_HEIGHT)/10,
+        _y_pos = (random.randint((0 + constants.PACKAGE_HEIGHT)/10,
                   (constants.SCREEN_HEIGHT-constants.PACKAGE_HEIGHT)/10))*10
-        self.create_object('images/Package.png', constants.SCREEN_WIDTH, self.y,
-                           0.25, False, False, 2)
+        self._create_object('images/Package.png', constants.SCREEN_WIDTH, _y_pos,
+                            0.25, False, False, 2)
 
 
 class Geese(Objects):
@@ -138,8 +137,7 @@ class Geese(Objects):
         Randomly generates a y coordinate and creates a goose sprite
         """
         super().__init__()
-        # pylint: disable=invalid-name
-        self.y = (random.randint((0 + constants.PACKAGE_HEIGHT)/10,
+        _y_pos = (random.randint((0 + constants.PACKAGE_HEIGHT)/10,
                   (constants.SCREEN_HEIGHT-constants.PACKAGE_HEIGHT)/10))*10
-        self.create_object('images/Goose.png', constants.SCREEN_WIDTH, self.y,
-                           0.25, False, False, 3)
+        self._create_object('images/Goose.png', constants.SCREEN_WIDTH, _y_pos,
+                            0.25, False, False, 3)
