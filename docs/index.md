@@ -1,6 +1,7 @@
 ## Kiki's Delivery Game
 
 Welcome to Kiki’s Delivery Game! The goal of this project was to create an interactive program. Inspired by Kiki’s Delivery Service from Studio Ghibli, our team created a game where the player plays as Kiki. Your goal is to collect as many packages as possible while flying and avoiding geese.
+<br>
 
 ## Game Overview
 
@@ -20,6 +21,7 @@ The player uses the up and down arrow keys to move Kiki vertically in order to a
 </p>
 
 The game ends when the player loses all three of their lives. All artwork is obtained from the movie Kiki’s Delivery Service.
+<br>
 
 ### Gameplay
 
@@ -48,10 +50,12 @@ When the player loses all three of their lives, the game transitions to the end 
 <p align="center">
   <img src="website-images/End_screen.PNG" width="50%" height="50%"/>
 </p>
+<br>
 
 ### Game Demo
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/DRlvDMA6zSc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+See a full game demo [here](https://youtu.be/DRlvDMA6zSc).
+<br>
 
 ## Installation
 
@@ -60,8 +64,35 @@ A detailed installation guide can be found [here](https://github.com/olincollege
 To play this game, you must have python and pygame installed. You will also need to download all the files in the [studio-ghibli-game repository](https://github.com/olincollege/studio-ghibli-game). Then, navigate to the repository folder and run the following command in the terminal to start playing:
 
 `python game_model.py`
+<br>
+
+## Code Structure
+
+Our code was structured using an MVC format. Using this format, we have a model module, a view module, and a control module. Our control module contains a class that handles collecting input from the user such as pressing the arrow keys or clicking the exit button on pygame. Our view model has a class that handles displaying graphics like sprites and scores on screen. Finally, our model module has the function that actually creates and runs an instance of the game. In addition, we also have an objects module that contains functions and classes for creating and controlling the interactions between sprites. In our main function to run the game, each game screen is controlled by a while loop nested inside of a larger while loop. Each while loop can be switched on or off to control which screen (welcome, gameplay, end) is active. 
+<br>
+
+## Project Takeaways
+
+Doing this project taught us a lot about properly scoping software projects as well as structuring interactive software projects. We could have really easily overscoped this. It’s really easy to get carried about with dialogue, graphics, music, and other aesthetic components when making a game. But ultimately, it was important to us to focus on creating a functional game first and everything else second. This vastly reduced our stress while still giving us a lot of options to easily improve the aesthetics with things like background images. Learning to use the MVC structure was really helpful as a way to think about code and keep everything organized. It helped a lot to be able to quickly organize and find different classes and methods. 
+<br>
 
 ## About Us
+
+<img src="website-images/Liv_AboutUs.png" width ="15%" height = "15%">
+
+#### Liv Dawes (they/them)
+*Olin College of Engineering '24*
+
+Hi! I'm Liv, an Engineering:Robotics student who likes rock climbing, swimming, traveling, and (of course) studio ghibli.
+<br>
+
+<img src="website-images/Anusha_AboutUs.png" width ="15%" height = "15%">
+
+#### Anusha Karandikar (she/her)
+*Olin College of Engineering '24*
+    
+I'm Anusha! I am a Mechanical Enineering student who likes dogs, pizza, and musicals.
+<br>
 
 ## Attribution
 
