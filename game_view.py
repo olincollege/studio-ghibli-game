@@ -1,35 +1,76 @@
 """
-Display home/start screen, background of game, win/death screen, scores.
+This files contains the class to control what is displayed on screen
 """
 import pygame
 import constants
-
 pygame.init()
 
 
 class GraphicsView:
+    """
+    Display home/start screen, background of game, win/death screen, scores.
+    """
 
     def __init__(self, SCREEN_WIDTH, SCREEN_HEIGHT):
+        """
+        Creates a pygame screen
+        """
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
     def fill_background(self, Color):
+        """
+        Fills the pygame screen with a given color
+
+        Args:
+            color: 3 integers rrepresenting the color to fill in the screen
+        """
         #Blue = (135, 206, 236)
         self.screen.fill(Color)
 
     def draw_background(self, img, dims):
+        """
+        Fills the background of the screen with an image
+
+        Args:
+            img: a string representiing the file path to the image
+            dims: 2 integers representing the dimensions of the image 
+        """
         self.image = pygame.image.load(img)
         self.rect = self.image.get_rect()
         self.image = pygame.transform.scale(self.image, dims)
         self.screen.blit(self.image, self.rect)
 
     def draw_group(self, group):
+        """
+        Draws all the sprites of one group on the pygame screen
+
+        Args:
+            group: a pygame group to draw
+        """
         group.draw(self.screen)
 
     def draw_groups(self, groups):
+        """
+        Draws all sprites from all given groups on screen
+
+        Args:
+            groups: a list of groups to draw
+        """
         for group in groups:
             self.draw_group(group)
 
     def display_text(self, text, size, x_pos, y_pos, color=(255, 255, 255)):
+        """
+        Displays given text on the pygame screen
+
+        Args:
+            text: a string containing the text to display
+            size: an integer representing font size
+            x_pos: an integer representing the x coordinate
+            y_pos: an integer representing y coordinate 
+            color: 3 integers representing the color of the text, defaults
+                to white
+        """
         font_name = pygame.font.match_font('sarai')
         font = pygame.font.Font(font_name, size)
         text_surface = font.render(text, True, color)
@@ -38,6 +79,14 @@ class GraphicsView:
         self.screen.blit(text_surface, text_rect)
 
     def game_display(self, lives, score, groups):
+        """
+        Displays everything necessary on the main game screen
+
+        Args:
+            lives: an integer representing the users lives
+            score: an integer reprsenting the users score
+            groups: a list of all groups to draw on screen
+        """
         self.fill_background((135, 206, 236))
         self.display_text(f"Lives: {lives}", 50,
                           constants.SCREEN_WIDTH - 100, 25, (0, 0, 0))
@@ -46,6 +95,9 @@ class GraphicsView:
         self.draw_groups(groups)
 
     def welcome_display(self):
+        """
+        Displays everything necessary on the welcome screen
+        """
         self.fill_background((135, 206, 236))
         self.draw_background('images/Start_screen.png',
                              (constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT))
@@ -59,6 +111,12 @@ class GraphicsView:
         #                  constants.SCREEN_WIDTH/2, constants.SCREEN_HEIGHT/2)
 
     def end_display(self, score):
+        """
+        Displays everything necessary on the end screen
+
+        Args:
+            score: an integer reprsenting the users score
+        """
         self.fill_background((135, 206, 236))
         self.draw_background('images/End_screen.png',
                              (constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT))
