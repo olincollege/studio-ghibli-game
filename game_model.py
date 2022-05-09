@@ -33,6 +33,7 @@ def main():     # pylint: disable=too-many-locals, too-many-statements
     # create variabels to store score and lives
     lives = 3
     score = 0
+    high_score = 0
 
     # create variables to control which game screen the user sees
     run = True
@@ -97,7 +98,9 @@ def main():     # pylint: disable=too-many-locals, too-many-statements
 
         while end_screen:
             # display the end screen
-            screen.end_display(score)
+            if score > high_score:
+                high_score = score
+            screen.end_display(score, high_score)
             pygame.display.flip()
 
             # if space is pressed, reset the game and go back to game screen
