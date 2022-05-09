@@ -1,7 +1,8 @@
-import pygame
 """
 This file contains some constants that are used across different code files.
 """
+import pygame
+
 pygame.init()
 
 FPS = 60

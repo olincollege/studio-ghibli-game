@@ -11,6 +11,7 @@ class KeyController():
     the game.
     """
 
+    # pylint: disable=no-self-use
     def get_move(self):
         """
         Return a list of all of the pressed keys
@@ -23,6 +24,7 @@ class KeyController():
         pressed_keys = pygame.key.get_pressed()
         return pressed_keys
 
+    # pylint: disable=no-self-use
     def check_exit(self):
         """
         Checks if the player has clicked the X and exits pygame if they have.

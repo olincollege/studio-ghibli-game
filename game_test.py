@@ -1,7 +1,10 @@
+"""
+Test functions for the studio ghibli game.
+"""
+import operator
 import pytest
 import pygame
-import operator
-from game_objects import Player, Geese, Packages
+from game_objects import Player, Geese, Packages, collide
 
 pygame.init()
 
@@ -63,6 +66,9 @@ test_package_2 = Packages()
 
 
 def test_create():
+    """
+    Test that randomly generated packages generate with different y values.
+    """
     package_1_y = test_package.rect.y
     package_2_y = test_package_2.rect.y
     assert package_1_y != package_2_y
@@ -70,6 +76,12 @@ def test_create():
 
 @pytest.mark.parametrize("sprite", update_cases)
 def test_update(sprite):
+    """
+    Test that packages and geese correctly move to the left when updated.
+
+    Args:
+        sprite: the sprite to update
+    """
     current_x = sprite.rect.x
     sprite.update()
     assert current_x > sprite.rect.x
@@ -77,11 +89,28 @@ def test_update(sprite):
 
 @pytest.mark.parametrize("sprite, dictionary, relate", move_cases)
 def test_move(sprite, dictionary, relate):
+    """
+    Test that the player moves correctly when different keys are pressed.
+
+    Args:
+        sprite: the player sprite
+        dictionary: a dictionary of pressed keys
+        relate: an operator to tell if the sprite has moved in the
+            right direction
+    """
     current_y = sprite.rect.y
     sprite.move(dictionary)
-    assert relate(sprite.rect.y, current_y) == True
+    assert relate(sprite.rect.y, current_y) is True
 
 
 @pytest.mark.parametrize("group_1, group_2, dictionary", collide_cases)
 def test_collide(group_1, group_2, dictionary):
-    assert test_player.collide(group_1, group_2) == dictionary
+    """
+    Test that collisions are correctly detected between the player and objects.
+
+    Args:
+        group_1: a pygame group with one type of sprite to check collision
+        group_2: a pygame group with one type of sprite to check collision
+        dictionary: a dictionary containing the list of sprites that collide
+    """
+    assert collide(group_1, group_2) == dictionary

@@ -1,10 +1,21 @@
 """
 Thsi file contains the classes to create sprites used in the game.
 """
-import pygame
 import random
+import pygame
 import constants
 pygame.init()
+
+
+def collide(group1, group2):
+    """
+    Checks if the player sprite has collided with any other sprites
+
+    Args:
+        group1: the group containing the player
+        group2: the group of objects to check a collision against
+    """
+    return pygame.sprite.groupcollide(group1, group2, False, True)
 
 
 class Objects(pygame.sprite.Sprite):
@@ -13,7 +24,18 @@ class Objects(pygame.sprite.Sprite):
     used in the game. It has subclasses for players, geese, and packages.
     """
 
-    def create_object(self, img, x, y, scale, xflip, yflip, speed):
+    def __init__(self):
+        """
+        Set up the variables for the sprites to be defined in create objects
+        """
+        self.image = None
+        self.rect = None
+        self.speed = None
+        self.height = None
+        self.width = None
+
+    # pylint: disable=too-many-arguments
+    def create_object(self, img, x_pos, y_pos, scale, xflip, yflip, speed):
         """
         create a sprite with given properties
 
@@ -30,20 +52,22 @@ class Objects(pygame.sprite.Sprite):
         """
         pygame.sprite.Sprite.__init__(self)
         self.speed = speed
-        self.image = pygame.image.load(img)
-        self.image = pygame.transform.scale(self.image, (int(
-            self.image.get_width() * scale), int(self.image.get_height() * scale)))
-        self.image = pygame.transform.flip(self.image, xflip, yflip)
+        image = pygame.image.load(img)
+        image = pygame.transform.scale(image,
+                                       (int(image.get_width() * scale),
+                                        int(image.get_height() * scale)))
+        self.image = pygame.transform.flip(image, xflip, yflip)
         self.rect = self.image.get_rect()
         self.height = self.image.get_height()
         self.width = self.image.get_width()
-        self.rect.center = (x, y)
+        self.rect.center = (x_pos, y_pos)
 
     def update(self):
         """
         Updates the position of the sprite based on the speed of the sprite
         """
-        dx = -self.speed
+        # pylint: disable=invalid-name
+        dx = -1*self.speed
         self.rect.x += dx
         if self.rect.x < 0 - self.width:
             self.kill()
@@ -59,8 +83,9 @@ class Player(Objects):
         Sets the x and y coordiantes to be the middle left of the screen and
         creates the player sprite
         """
-        self.y = constants.SCREEN_HEIGHT/2
-        self.x = 100
+        super().__init__()
+        self.y = constants.SCREEN_HEIGHT/2  # pylint: disable=invalid-name
+        self.x = 100    # pylint: disable=invalid-name
         self.create_object('images/kiki.png', self.x,
                            self.y, 0.5, True, False, 5)
 
@@ -71,27 +96,17 @@ class Player(Objects):
         Args:
             pressed keys: a list of the state of all keys
         """
-        dy = 0
+        dy = 0  # pylint: disable=invalid-name
         if pressed_keys[pygame.K_UP]:
-            dy = -self.speed
+            dy = -1*self.speed    # pylint: disable=invalid-name
         elif pressed_keys[pygame.K_DOWN]:
-            dy = self.speed
+            dy = self.speed     # pylint: disable=invalid-name
         self.rect.y += dy
 
         if self.rect.y < 0:
             self.rect.y = 0
         elif self.rect.y > 800*.8 - self.height:
             self.rect.y = 800*.8 - self.height
-
-    def collide(self, group1, group2):
-        """
-        Checks if the player sprite has collided with any other sprites
-
-        Args:
-            group1: the group containing the player
-            group2: the group of objects to check a collision against
-        """
-        return pygame.sprite.groupcollide(group1, group2, False, True)
 
 
 class Packages(Objects):
@@ -104,6 +119,8 @@ class Packages(Objects):
         """
         Randomly generates a y coordinate and creates a package sprite
         """
+        super().__init__()
+        # pylint: disable=invalid-name
         self.y = (random.randint((0 + constants.PACKAGE_HEIGHT)/10,
                   (constants.SCREEN_HEIGHT-constants.PACKAGE_HEIGHT)/10))*10
         self.create_object('images/Package.png', constants.SCREEN_WIDTH, self.y,
@@ -120,6 +137,8 @@ class Geese(Objects):
         """
         Randomly generates a y coordinate and creates a goose sprite
         """
+        super().__init__()
+        # pylint: disable=invalid-name
         self.y = (random.randint((0 + constants.PACKAGE_HEIGHT)/10,
                   (constants.SCREEN_HEIGHT-constants.PACKAGE_HEIGHT)/10))*10
         self.create_object('images/Goose.png', constants.SCREEN_WIDTH, self.y,

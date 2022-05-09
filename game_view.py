@@ -17,7 +17,7 @@ class GraphicsView:
         """
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
-    def fill_background(self, Color):
+    def fill_background(self, color):
         """
         Fills the pygame screen with a given color
 
@@ -25,7 +25,7 @@ class GraphicsView:
             color: 3 integers rrepresenting the color to fill in the screen
         """
         #Blue = (135, 206, 236)
-        self.screen.fill(Color)
+        self.screen.fill(color)
 
     def draw_background(self, img, dims):
         """
@@ -33,12 +33,12 @@ class GraphicsView:
 
         Args:
             img: a string representiing the file path to the image
-            dims: 2 integers representing the dimensions of the image 
+            dims: 2 integers representing the dimensions of the image
         """
-        self.image = pygame.image.load(img)
-        self.rect = self.image.get_rect()
-        self.image = pygame.transform.scale(self.image, dims)
-        self.screen.blit(self.image, self.rect)
+        image = pygame.image.load(img)
+        rect = image.get_rect()
+        image = pygame.transform.scale(image, dims)
+        self.screen.blit(image, rect)
 
     def draw_group(self, group):
         """
@@ -59,6 +59,7 @@ class GraphicsView:
         for group in groups:
             self.draw_group(group)
 
+    # pylint: disable=too-many-arguments
     def display_text(self, text, size, x_pos, y_pos, color=(255, 255, 255)):
         """
         Displays given text on the pygame screen
@@ -67,7 +68,7 @@ class GraphicsView:
             text: a string containing the text to display
             size: an integer representing font size
             x_pos: an integer representing the x coordinate
-            y_pos: an integer representing y coordinate 
+            y_pos: an integer representing y coordinate
             color: 3 integers representing the color of the text, defaults
                 to white
         """
@@ -101,14 +102,12 @@ class GraphicsView:
         self.fill_background((135, 206, 236))
         self.draw_background('images/Start_screen.png',
                              (constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT))
-        self.display_text(f"Welcome to Kiki's Delivery Game", 35,
-                          constants.SCREEN_WIDTH - 225, constants.SCREEN_HEIGHT-175)
-        self.display_text(f"Press SPACE To Start", 35,
-                          constants.SCREEN_WIDTH - 225, constants.SCREEN_HEIGHT-125)
-        # self.display_text(f"Welcome to Kiki's Delivery Game", 50,
-        #                  constants.SCREEN_WIDTH/2, constants.SCREEN_HEIGHT/2-50)
-        # self.display_text(f"Press SPACE To Start", 50,
-        #                  constants.SCREEN_WIDTH/2, constants.SCREEN_HEIGHT/2)
+        self.display_text("Welcome to Kiki's Delivery Game", 35,
+                          constants.SCREEN_WIDTH - 225,
+                          constants.SCREEN_HEIGHT-175)
+        self.display_text("Press SPACE To Start", 35,
+                          constants.SCREEN_WIDTH - 225,
+                          constants.SCREEN_HEIGHT-125)
 
     def end_display(self, score):
         """
@@ -122,9 +121,5 @@ class GraphicsView:
                              (constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT))
         self.display_text(f"Final Score: {score}", 50,
                           constants.SCREEN_WIDTH/2, constants.SCREEN_HEIGHT-150)
-        self.display_text(f"Press SPACE To Play Again", 50,
+        self.display_text("Press SPACE To Play Again", 50,
                           constants.SCREEN_WIDTH/2, constants.SCREEN_HEIGHT-100)
-        # self.display_text(f"Final Score: {score}", 50,
-        #                  constants.SCREEN_WIDTH/2, constants.SCREEN_HEIGHT/2-50)
-        # self.display_text(f"Press SPACE To Play Again", 50,
-        #                  constants.SCREEN_WIDTH/2, constants.SCREEN_HEIGHT/2)

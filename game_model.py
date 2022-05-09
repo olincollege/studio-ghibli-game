@@ -2,13 +2,13 @@
 This file contains all the code to run an instance of the game
 """
 import pygame
-from game_objects import Geese, Packages, Player
+from game_objects import Geese, Packages, Player, collide
 from game_view import GraphicsView
 from game_controller import KeyController
 import constants
 
 
-def main():
+def main():     # pylint: disable=too-many-locals, too-many-statements
     """
     This function runs a instance of the full game
     """
@@ -76,9 +76,9 @@ def main():
             player.move(pressed_keys)
 
             # check if the charecter has colided with objects
-            if player.collide(player_group, packages_group):
+            if collide(player_group, packages_group):
                 score += 1
-            if player.collide(player_group, geese_group):
+            if collide(player_group, geese_group):
                 lives -= 1
 
             # draw the screen display
