@@ -18,7 +18,7 @@ def collide(group1, group2):
     return pygame.sprite.groupcollide(group1, group2, False, True)
 
 
-class Objects(pygame.sprite.Sprite):
+class Objects(pygame.sprite.Sprite):  # pylint: disable=too-few-public-methods
     """
     This class contains creates and stores information about all the sprites
     used in the game. It has subclasses for players, geese, and packages.
@@ -109,7 +109,7 @@ class Player(Objects):
             self.rect.y = 800*.8 - self._height
 
 
-class Packages(Objects):
+class Packages(Objects):  # pylint: disable=too-few-public-methods
     """
     This class creates an instance of a package and inherits from the objects
         class
@@ -122,11 +122,11 @@ class Packages(Objects):
         super().__init__()
         _y_pos = (random.randint((0 + constants.PACKAGE_HEIGHT)/10,
                   (constants.SCREEN_HEIGHT-constants.PACKAGE_HEIGHT)/10))*10
-        self._create_object('images/Package.png', constants.SCREEN_WIDTH, _y_pos,
-                            0.25, False, False, 2)
+        self._create_object('images/Package.png', constants.SCREEN_WIDTH,
+                            _y_pos, 0.25, False, False, 2)
 
 
-class Geese(Objects):
+class Geese(Objects):  # pylint: disable=too-few-public-methods
     """
     This class creates an instance of a goose and inherits from the objects
         class
